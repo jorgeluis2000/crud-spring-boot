@@ -1,0 +1,112 @@
+openapi: 3.0.3
+info:
+  title: API Basic Crud
+  description: |-
+    This is the documentation about Crud API.
+  version: v1.0.0
+servers:
+  - url: http://localhost:8888
+    description: This is the local server.
+tags:
+  - name: Products
+    description: Here there are each end-point to requiered for using a basic crud about product.
+
+paths:
+  /api/v1/products:
+    get:
+      tags:
+        - "Products"
+      summary: Get all products.
+      description: Get all products there are in the data base.
+      responses:
+        200:
+          description: (OK) Success Request
+          content:
+            application/text:
+              schema:
+                type: string
+                example: []
+    post:
+      tags:
+        - "Products"
+      summary: Register a product.
+      description: Register a product if exist a product with the same name, this won't be to save.
+      requestBody:
+        required: true
+        description: This is the body request.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - "name"
+                - "price"
+                - "myDate"
+              properties:
+                "name":
+                  type: string
+                  example: "Laptop 3535 Asas"
+                  description: Name of product.
+                "price":
+                  type: number
+                  example: 15350
+                  description: Price of product
+                "myDate":
+                  type: string
+                  example: "2017-04-24"
+                  description: Date when was came up the product.
+      responses:
+        201:
+          description: (OK) Created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                    enum:
+                      - true
+                    example: true
+                    description: has been created a new product success.
+                  message:
+                    type: string
+                    example: Has been saving a new product!!!
+                    enum:
+                      - Has been saved a new product!!!
+                    description: A message that descripte the status request.
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        description: Priamry key.
+                        example: 1
+                      name:
+                        type: string
+                        description: Name of product.
+                        example: "Laptop 3535 Asas"
+                      price:
+                        type: number
+                        description: Price of product.
+                        example: 15350.0
+                      myData:
+                        type: array
+                        description: Date of product.
+                        example: [2017, 4, 24]
+                      antiquity:
+                        type: integer
+                        example: 6
+                        description: Antiquity of product.
+        409:
+          description: (COnflic) There is exist that product with that name.
+          content:
+            application/json:
+              schema:
+                type: string
+                example:
+                description: No content any message.
+                
+
+    
+
